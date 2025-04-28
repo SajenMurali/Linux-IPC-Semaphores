@@ -1,6 +1,5 @@
 # Linux-IPC-Semaphores
 Ex05-Linux IPC-Semaphores
-
 # AIM:
 To Write a C program that implements a producer-consumer system with two processes using Semaphores.
 
@@ -21,10 +20,11 @@ Execute the C Program for the desired output.
 # PROGRAM:
 
 ## Write a C program that implements a producer-consumer system with two processes using Semaphores.
-```c
+```
 /*
- * sem.c  - demonstrates a basic producer-consumer
- *                            implementation.              */
+ * sem-producer-consumer.c  - demonstrates a basic producer-consumer
+ *                            implementation.
+ */
 #include <stdio.h>	 /* standard I/O routines.              */
 #include <stdlib.h>      /* rand() and srand() functions        */
 #include <unistd.h>	 /* fork(), etc.                        */
@@ -37,7 +37,6 @@ Execute the C Program for the desired output.
 /* union semun is defined by including <sys/sem.h> */
 #else
 /* according to X/OPEN we have to define it ourselves */
-
 union semun {
         int val;                    /* value for SETVAL */
         struct semid_ds *buf;       /* buffer for IPC_STAT, IPC_SET */
@@ -71,7 +70,7 @@ int main(int argc, char* argv[])
 	case -1:	/* fork() failed */
 	    perror("fork");
 	    exit(1);
-case 0:		/* child process here */
+	case 0:		/* child process here */
 	    for (i=0; i<NUM_LOOPS; i++) {
 		/* block on the semaphore, unless it's value is non-negative. */
 		sem_op.sem_num = 0;
@@ -88,7 +87,7 @@ case 0:		/* child process here */
 		fflush(stdout);
 		/* increase the value of the semaphore by 1. */
 		sem_op.sem_num = 0;
-sem_op.sem_op = 1;
+					sem_op.sem_op = 1;
 		sem_op.sem_flg = 0;
 		semop(sem_set_id, &sem_op, 1);
 		/* pause execution for a little bit, to allow the */
@@ -101,24 +100,20 @@ sem_op.sem_op = 1;
 		                      sleep(10); }
 if(NUM_LOOPS>=10)    {
 	    semctl(sem_set_id, 0, IPC_RMID, sem_val) ;} // Remove the sem_set_id
-	    }
+	    }}
 	    break;
-	}
+    }
     return 0;}
-
 ```
-
-
 
 ## OUTPUT
 $ ./sem.o 
-![alt text](image.png)
+
+![image](https://github.com/user-attachments/assets/7b39e1cb-15ca-4e6a-af23-7aae33dcb28e)
 
 $ ipcs
-![alt text](image-1.png)
 
-
-
+![image](https://github.com/user-attachments/assets/cacbf5f7-1a19-4b29-be29-b9481aedcfb5)
 
 # RESULT:
 The program is executed successfully.
